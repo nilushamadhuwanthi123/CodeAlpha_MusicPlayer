@@ -1,0 +1,111 @@
+/* ==========================================================================
+   WAVEORA — Design Tokens
+   Electric Indigo + Coral + Cyan + Sunset Orange
+   ========================================================================== */
+
+:root{
+  /* -------- Light mode (default) -------- */
+  --primary:#6C5CE7;
+  --primary-hover:#5848D6;
+  --primary-rgb:108,92,231;
+
+  --secondary:#00B8D9;
+  --secondary-rgb:0,184,217;
+
+  --accent:#FF6B6B;
+  --accent-rgb:255,107,107;
+  --accent-secondary:#FF9F43;
+  --accent-secondary-rgb:255,159,67;
+
+  --background:#F7F7FC;
+  --surface:#FFFFFF;
+  --surface-secondary:#F0F0FA;
+  --surface-rgb:255,255,255;
+
+  --text-primary:#17172B;
+  --text-secondary:#62627A;
+  --text-muted:#9696AA;
+
+  --border:#E3E3F0;
+
+  --success:#20BF6B;
+  --warning:#F7B731;
+  --danger:#EB3B5A;
+
+  /* dynamic (music-reactive) accents — overridden per track */
+  --dyn-a:var(--primary);
+  --dyn-b:var(--secondary);
+  --dyn-rgb-a:var(--primary-rgb);
+  --dyn-rgb-b:var(--secondary-rgb);
+
+  /* layout */
+  --sidebar-w:264px;
+  --miniplayer-h:88px;
+  --bottomnav-h:64px;
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:24px;
+  --radius-pill:999px;
+
+  /* motion */
+  --dur-fast:180ms;
+  --dur-med:320ms;
+  --dur-slow:650ms;
+  --ease:cubic-bezier(.22,.9,.32,1);
+
+  --shadow-sm:0 2px 10px rgba(23,23,43,.06);
+  --shadow-md:0 10px 30px rgba(23,23,43,.10);
+  --shadow-lg:0 20px 60px rgba(23,23,43,.16);
+  --shadow-glow:0 0 40px rgba(var(--dyn-rgb-a),.35);
+
+  --font-display:'Space Grotesk','Poppins',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+
+  color-scheme:light;
+}
+
+[data-theme="dark"]{
+  --background:#09091A;
+  --surface:#11112A;
+  --surface-secondary:#18183A;
+  --surface-rgb:17,17,42;
+
+  --primary:#8B7CFF;
+  --primary-hover:#A296FF;
+  --primary-rgb:139,124,255;
+
+  --secondary:#19D3E6;
+  --secondary-rgb:25,211,230;
+
+  --accent:#FF6B8A;
+  --accent-rgb:255,107,138;
+  --accent-secondary:#FFB86B;
+  --accent-secondary-rgb:255,184,107;
+
+  --text-primary:#F8F8FF;
+  --text-secondary:#A8A8C2;
+  --text-muted:#777794;
+
+  --border:#29294A;
+
+  --success:#32D583;
+  --warning:#FFC857;
+  --danger:#FF6B81;
+
+  --shadow-sm:0 2px 10px rgba(0,0,0,.35);
+  --shadow-md:0 10px 30px rgba(0,0,0,.45);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.55);
+
+  color-scheme:dark;
+}
+
+/* Eye Comfort — warm, lower-intensity overlay tokens (applied on top of dark or light) */
+[data-eyecomfort="low"]{ --ec-filter: sepia(6%) saturate(94%) brightness(0.99); --ec-glow:.7; }
+[data-eyecomfort="medium"]{ --ec-filter: sepia(12%) saturate(88%) brightness(0.96); --ec-glow:.5; }
+[data-eyecomfort="high"]{ --ec-filter: sepia(20%) saturate(80%) brightness(0.92); --ec-glow:.3; }
+
+[data-reduced-motion="true"]{
+  --dur-fast:0ms;
+  --dur-med:0ms;
+  --dur-slow:0ms;
+}

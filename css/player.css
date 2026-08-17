@@ -1,0 +1,14 @@
+/* extra player-only rules (bulk lives in layout.css po-* classes) */
+.speed-menu,.sleep-menu{display:flex;flex-direction:column;gap:4px;}
+.speed-menu button,.sleep-menu button{
+  display:flex;justify-content:space-between;padding:9px 12px;border-radius:8px;font-size:.85rem;font-weight:600;color:var(--text-secondary);
+}
+.speed-menu button.active,.sleep-menu button.active{background:rgba(var(--dyn-rgb-a),.12);color:var(--dyn-a);}
+.speed-menu button:hover,.sleep-menu button:hover{background:var(--surface-secondary);}
+.sleep-badge{
+  position:fixed;bottom:calc(var(--miniplayer-h) + 14px);right:20px;background:var(--surface);border:1px solid var(--border);
+  padding:10px 16px;border-radius:var(--radius-pill);box-shadow:var(--shadow-md);font-size:.8rem;font-weight:700;
+  display:none;align-items:center;gap:8px;z-index:150;
+}
+.sleep-badge.show{display:flex;}
+.lyrics-edit textarea{width:100%;min-height:200px;}

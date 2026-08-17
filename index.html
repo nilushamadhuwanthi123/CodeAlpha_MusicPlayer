@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-reduced-motion="false">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WAVEORA — Your Sound. Your Space.</title>
+<meta name="description" content="WAVEORA is a premium local-first music & audio experience platform — playlists, visualizer, statistics and more, all running entirely in your browser.">
+<meta name="theme-color" content="#6C5CE7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/player.css">
+<link rel="stylesheet" href="css/library.css">
+<link rel="stylesheet" href="css/playlist.css">
+<link rel="stylesheet" href="css/discover.css">
+<link rel="stylesheet" href="css/statistics.css">
+<link rel="stylesheet" href="css/settings.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-viz-style="bars">
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div id="toast-region" role="status" aria-live="polite"></div>
+<div class="offline-banner" id="offline-banner">📡 Offline — your local music library is still available</div>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 15V9a1 1 0 011-1h2l5-4v16l-5-4H5a1 1 0 01-1-1z"/><path d="M16 8a5 5 0 010 8"/><path d="M19 5a9 9 0 010 14"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">WAVEORA</div>
+        <div class="brand-tag">Your Sound. Your Space.</div>
+      </div>
+    </div>
+
+    <nav class="nav-group" aria-label="Primary">
+      <a href="#dashboard" class="nav-link" data-view="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg><span>Dashboard</span></a>
+      <a href="#discover" class="nav-link" data-view="discover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6z"/></svg><span>Discover</span></a>
+      <a href="#library" class="nav-link" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>My Library</span></a>
+      <a href="#playlists" class="nav-link" data-view="playlists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h11M4 12h11M4 18h6"/><circle cx="19" cy="16" r="3"/><path d="M20.5 14.5V8l-3 1"/></svg><span>Playlists</span></a>
+      <a href="#favorites" class="nav-link" data-view="favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 5a5.5 5.5 0 019.5 7c-2.5 4.5-9.5 9-9.5 9z"/></svg><span>Favorites</span></a>
+      <a href="#recently-played" class="nav-link" data-view="recently-played"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>Recently Played</span></a>
+    </nav>
+
+    <nav class="nav-group" aria-label="Browse">
+      <div class="nav-group-title">Browse</div>
+      <a href="#artists" class="nav-link" data-view="artists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Artists</span></a>
+      <a href="#albums" class="nav-link" data-view="albums"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg><span>Albums</span></a>
+      <a href="#statistics" class="nav-link" data-view="statistics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg><span>Statistics</span></a>
+    </nav>
+
+    <nav class="nav-group" aria-label="Preferences">
+      <div class="nav-group-title">Preferences</div>
+      <a href="#settings" class="nav-link" data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1 1.55V21a2 2 0 11-4 0v-.09A1.7 1.7 0 009 19.4a1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.7 1.7 0 004.6 15a1.7 1.7 0 00-1.55-1H3a2 2 0 110-4h.09A1.7 1.7 0 004.6 9a1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 112.83-2.83l.06.06A1.7 1.7 0 009 4.6a1.7 1.7 0 001-1.55V3a2 2 0 114 0v.09a1.7 1.7 0 001 1.55 1.7 1.7 0 001.87-.34l.06-.06a2 2 0 112.83 2.83l-.06.06A1.7 1.7 0 0019.4 9a1.7 1.7 0 001.55 1H21a2 2 0 110 4h-.09a1.7 1.7 0 00-1.55 1z"/></svg><span>Settings</span></a>
+    </nav>
+
+    <div class="sidebar-cta">
+      <div class="storage-meter" id="storage-meter">Local storage: calculating…<div class="bar"><span id="storage-bar" style="width:2%"></span></div></div>
+      <button class="add-music-btn" id="sidebar-add-music" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="17" height="17"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Add Music</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="main-col">
+    <header class="topbar">
+      <label class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="search" id="global-search" placeholder="Search for songs, artists or albums…" aria-label="Search library">
+        <span class="kbd">⌘K</span>
+      </label>
+      <div class="topbar-actions">
+        <button class="btn-icon essential" id="dark-toggle-btn" aria-label="Toggle dark mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+        </button>
+        <button class="btn-icon" id="eyecomfort-toggle-btn" aria-label="Toggle eye comfort mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="btn-icon essential" id="cmdk-trigger" aria-label="Open command center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 8h.01M9 16h.01M15 12h.01"/></svg>
+        </button>
+        <div class="avatar" id="user-avatar" title="Nilusha Madhuwanthi">NM</div>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content" tabindex="-1">
+
+      <!-- ===================== DASHBOARD ===================== -->
+      <section class="view active view-enter" id="view-dashboard" data-view="dashboard" aria-labelledby="dash-heading">
+        <div class="hero-panel">
+          <h1 id="dash-heading" id="hero-greeting">Good evening, Nilusha 👋</h1>
+          <p>Your sound. Your space. Discover your music, build playlists, and enjoy every moment — all stored right here in your browser.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="hero-open-player"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg> Open Player</button>
+            <button class="btn btn-secondary" id="hero-explore-library">Explore Library</button>
+          </div>
+        </div>
+
+        <div class="section-head"><h2>Currently Playing</h2></div>
+        <div class="now-playing-card" style="margin-bottom:28px;">
+          <div class="np-inner">
+            <div class="np-art"><img id="np-cover" src="" alt="" onerror="this.style.opacity=0"></div>
+            <div>
+              <div class="np-label">Currently Playing</div>
+              <h3 class="np-title" id="np-title">Nothing playing yet</h3>
+              <p class="np-artist" id="np-artist">Add music or try a demo track to get started</p>
+              <canvas class="np-viz" id="np-visualizer"></canvas>
+              <div class="np-controls">
+                <button class="btn-icon prev-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6 6h2v12H6zM20 6L10 12l10 6z"/></svg></button>
+                <button class="btn-icon play-toggle" aria-label="Play"></button>
+                <button class="btn-icon next-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 6h2v12h-2zM4 6l10 6L4 18z"/></svg></button>
+                <button class="btn-icon shuffle-btn" aria-label="Shuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg></button>
+                <button class="btn-icon repeat-btn" aria-label="Repeat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-tiles" id="dashboard-stat-tiles"></div>
+
+        <div class="quick-actions" id="dashboard-quick-actions"></div>
+
+        <div class="card chart-card" style="margin-bottom:28px;">
+          <div class="section-head"><h2>Listening Activity</h2></div>
+          <div class="week-chart" id="dashboard-week-chart"></div>
+        </div>
+
+        <div class="section-head"><h2>Recently Added</h2><a href="#library" class="see-all">See all</a></div>
+        <div class="grid grid-auto stagger" id="dashboard-recent-added" style="margin-bottom:28px;"></div>
+
+        <div class="section-head"><h2>Favorites</h2><a href="#favorites" class="see-all">See all</a></div>
+        <div class="grid grid-auto stagger" id="dashboard-favorites"></div>
+      </section>
+
+      <!-- ===================== DISCOVER ===================== -->
+      <section class="view" id="view-discover" data-view="discover">
+        <div class="section-head"><h2>Discover</h2></div>
+        <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:24px;max-width:560px;">Recommendations here are generated only from your own local listening history — there's no cloud recommendation engine involved.</p>
+
+        <div class="section-head"><h2>Recently Added</h2></div>
+        <div class="grid grid-auto stagger" id="discover-recent-added" style="margin-bottom:28px;"></div>
+
+        <div class="section-head"><h2>Recently Played</h2></div>
+        <div class="grid grid-auto stagger" id="discover-recent-played" style="margin-bottom:28px;"></div>
+
+        <div class="section-head"><h2>Favorites</h2></div>
+        <div class="grid grid-auto stagger" id="discover-favorites" style="margin-bottom:28px;"></div>
+
+        <div class="section-head"><h2>Popular in Your Library</h2></div>
+        <div class="grid grid-auto stagger" id="discover-popular" style="margin-bottom:28px;"></div>
+
+        <div class="section-head"><h2>Recommended From Your Library</h2></div>
+        <div class="grid grid-auto stagger" id="discover-recommended"></div>
+      </section>
+
+      <!-- ===================== LIBRARY ===================== -->
+      <section class="view" id="view-library" data-view="library">
+        <div class="section-head"><h2>My Library</h2></div>
+        <div class="filter-bar">
+          <button class="chip active" data-sort="recent">Recently Added</button>
+          <button class="chip" data-sort="title">Title A–Z</button>
+          <button class="chip" data-sort="artist">Artist</button>
+          <div class="view-toggle" role="group" aria-label="Layout">
+            <button class="active" data-layout="list" aria-label="List view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            <button data-layout="grid" aria-label="Grid view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+          </div>
+        </div>
+        <div id="library-content"></div>
+      </section>
+
+      <!-- ===================== PLAYLISTS ===================== -->
+      <section class="view" id="view-playlists" data-view="playlists">
+        <div class="section-head"><h2>Playlists</h2></div>
+        <div class="grid grid-auto stagger" id="playlists-grid"></div>
+      </section>
+
+      <!-- ===================== PLAYLIST DETAIL ===================== -->
+      <section class="view" id="view-playlist-detail" data-view="playlist-detail">
+        <button class="btn btn-ghost btn-sm" id="playlist-back-btn" style="margin-bottom:14px;">← Back to Playlists</button>
+        <div class="playlist-hero">
+          <div class="cover" id="pd-cover"></div>
+          <div class="meta">
+            <div class="kind">Playlist</div>
+            <h1 id="pd-name">Playlist</h1>
+            <p class="sub" id="pd-sub">0 songs</p>
+            <div class="actions">
+              <button class="btn btn-primary" id="pd-play-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg> Play</button>
+              <button class="btn btn-secondary" id="pd-shuffle-btn">Shuffle</button>
+              <button class="btn btn-secondary" id="pd-favorite-btn">♥ Favorite</button>
+              <button class="btn btn-secondary" id="pd-rename-btn">Rename</button>
+              <button class="btn btn-secondary" id="pd-delete-btn">Delete</button>
+            </div>
+          </div>
+        </div>
+        <div id="pd-tracklist"></div>
+      </section>
+
+      <!-- ===================== FAVORITES ===================== -->
+      <section class="view" id="view-favorites" data-view="favorites">
+        <div class="section-head"><h2>Favorites</h2></div>
+        <div id="favorites-content"></div>
+      </section>
+
+      <!-- ===================== RECENTLY PLAYED ===================== -->
+      <section class="view" id="view-recently-played" data-view="recently-played">
+        <div class="section-head"><h2>Recently Played</h2></div>
+        <div id="recently-played-content"></div>
+      </section>
+
+      <!-- ===================== ARTISTS ===================== -->
+      <section class="view" id="view-artists" data-view="artists">
+        <div class="section-head"><h2>Artists</h2></div>
+        <div class="grid grid-auto stagger" id="artists-grid"></div>
+      </section>
+      <section class="view" id="view-artist-detail" data-view="artist-detail">
+        <button class="btn btn-ghost btn-sm" id="artist-back-btn" style="margin-bottom:14px;">← Back to Artists</button>
+        <div class="playlist-hero">
+          <div class="cover" id="ad-cover" style="border-radius:50%;"></div>
+          <div class="meta">
+            <div class="kind">Artist</div>
+            <h1 id="ad-name">Artist</h1>
+            <p class="sub" id="ad-sub"></p>
+            <div class="actions"><button class="btn btn-primary" id="ad-play-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg> Play All</button></div>
+          </div>
+        </div>
+        <div id="ad-tracklist"></div>
+      </section>
+
+      <!-- ===================== ALBUMS ===================== -->
+      <section class="view" id="view-albums" data-view="albums">
+        <div class="section-head"><h2>Albums</h2></div>
+        <div class="grid grid-auto stagger" id="albums-grid"></div>
+      </section>
+      <section class="view" id="view-album-detail" data-view="album-detail">
+        <button class="btn btn-ghost btn-sm" id="album-back-btn" style="margin-bottom:14px;">← Back to Albums</button>
+        <div class="playlist-hero">
+          <div class="cover" id="ald-cover"></div>
+          <div class="meta">
+            <div class="kind">Album</div>
+            <h1 id="ald-name">Album</h1>
+            <p class="sub" id="ald-sub"></p>
+            <div class="actions">
+              <button class="btn btn-primary" id="ald-play-btn"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg> Play All</button>
+              <button class="btn btn-secondary" id="ald-shuffle-btn">Shuffle</button>
+            </div>
+          </div>
+        </div>
+        <div id="ald-tracklist"></div>
+      </section>
+
+      <!-- ===================== STATISTICS ===================== -->
+      <section class="view" id="view-statistics" data-view="statistics">
+        <div class="section-head"><h2>Listening Statistics</h2></div>
+        <div class="stats-grid" id="stats-tiles"></div>
+        <div class="grid grid-2" style="margin-bottom:24px;">
+          <div class="card bar-chart-wrap">
+            <div class="section-head"><h2 style="font-size:1rem;">Weekly Listening</h2></div>
+            <canvas class="chart-canvas" id="stats-week-canvas"></canvas>
+          </div>
+          <div class="card bar-chart-wrap">
+            <div class="section-head"><h2 style="font-size:1rem;">Monthly Listening</h2></div>
+            <canvas class="chart-canvas" id="stats-month-canvas"></canvas>
+          </div>
+        </div>
+        <div class="grid grid-2">
+          <div class="card" style="padding:20px;">
+            <div class="section-head"><h2 style="font-size:1rem;">Top Tracks</h2></div>
+            <div class="top-list" id="stats-top-tracks"></div>
+          </div>
+          <div class="card" style="padding:20px;">
+            <div class="section-head"><h2 style="font-size:1rem;">Top Artists</h2></div>
+            <div class="top-list" id="stats-top-artists"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== SETTINGS ===================== -->
+      <section class="view" id="view-settings" data-view="settings">
+        <div class="section-head"><h2>Settings</h2></div>
+        <div class="settings-layout">
+          <nav class="settings-nav" aria-label="Settings sections">
+            <button class="active" data-settings="appearance">Appearance</button>
+            <button data-settings="player">Player</button>
+            <button data-settings="equalizer">Equalizer</button>
+            <button data-settings="library">Library</button>
+            <button data-settings="privacy">Privacy</button>
+            <button data-settings="data">Data</button>
+          </nav>
+          <div>
+            <div class="settings-section active" id="settings-appearance">
+              <div class="card" style="padding:20px;">
+                <h3 style="margin-bottom:14px;font-size:.95rem;">Theme</h3>
+                <div class="theme-options" id="theme-options"></div>
+              </div>
+              <div class="card">
+                <div class="setting-row">
+                  <div class="info"><h4>Eye Comfort Mode</h4><p>Designed for a softer nighttime viewing experience — warmer tones and reduced glow.</p></div>
+                  <label class="switch"><input type="checkbox" id="eyecomfort-switch"><span class="track"></span><span class="thumb"></span></label>
+                </div>
+                <div class="setting-row">
+                  <div class="info"><h4>Eye Comfort Intensity</h4><p>Low, medium, or high softening.</p></div>
+                  <div class="eq-presets"><button class="chip" data-intensity="low">Low</button><button class="chip" data-intensity="medium">Medium</button><button class="chip" data-intensity="high">High</button></div>
+                </div>
+                <div class="setting-row">
+                  <div class="info"><h4>Night Mode</h4><p>System / Manual / Scheduled (7:00 PM → 6:00 AM by default).</p></div>
+                  <select id="nightmode-select"><option value="manual">Manual</option><option value="system">System</option><option value="scheduled">Scheduled</option></select>
+                </div>
+                <div class="setting-row">
+                  <div class="info"><h4>Reduce Motion</h4><p>Disables decorative animation, gradients and visualizer intensity.</p></div>
+                  <label class="switch"><input type="checkbox" id="reducedmotion-switch"><span class="track"></span><span class="thumb"></span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-section" id="settings-player">
+              <div class="card">
+                <div class="setting-row"><div class="info"><h4>Default Volume</h4></div><input type="range" id="settings-volume" min="0" max="100" style="width:180px;"></div>
+                <div class="setting-row"><div class="info"><h4>Playback Speed</h4></div><select id="settings-speed"><option value="0.75">0.75x</option><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></div>
+                <div class="setting-row"><div class="info"><h4>Default Visualizer</h4></div><select id="settings-viz"><option value="bars">Bars</option><option value="wave">Wave</option><option value="circle">Circle</option><option value="particles">Particles</option></select></div>
+                <div class="setting-row"><div class="info"><h4>Autoplay Next Track</h4><p>Automatically continue to the next track in queue.</p></div><label class="switch"><input type="checkbox" id="autoplay-switch"><span class="track"></span><span class="thumb"></span></label></div>
+                <div class="setting-row"><div class="info"><h4>Crossfade (UI)</h4><p>Visual crossfade indicator between tracks — interface preview.</p></div><label class="switch"><input type="checkbox" id="crossfade-switch"><span class="track"></span><span class="thumb"></span></label></div>
+              </div>
+            </div>
+
+            <div class="settings-section" id="settings-equalizer">
+              <div class="card eq-panel" style="padding:20px;">
+                <div class="eq-presets" id="eq-presets">
+                  <button class="chip active" data-preset="flat">Flat</button>
+                  <button class="chip" data-preset="bassBoost">Bass Boost</button>
+                  <button class="chip" data-preset="trebleBoost">Treble Boost</button>
+                  <button class="chip" data-preset="vocal">Vocal</button>
+                  <button class="chip" data-preset="classical">Classical</button>
+                  <button class="chip" data-preset="electronic">Electronic</button>
+                  <button class="chip" data-preset="custom">Custom</button>
+                </div>
+                <div class="eq-bands" id="eq-bands"></div>
+              </div>
+            </div>
+
+            <div class="settings-section" id="settings-library">
+              <div class="card">
+                <div class="setting-row"><div class="info"><h4>Auto-save Metadata Edits</h4></div><label class="switch"><input type="checkbox" id="autosave-switch"><span class="track"></span><span class="thumb"></span></label></div>
+                <div class="setting-row"><div class="info"><h4>Duplicate File Handling</h4></div><select id="duplicate-select"><option value="skip">Skip duplicates</option><option value="rename">Add anyway</option></select></div>
+              </div>
+            </div>
+
+            <div class="settings-section" id="settings-privacy">
+              <div class="card privacy-box">
+                <p><strong>Your privacy, by design.</strong> Your music files and personal library are stored locally in this browser using IndexedDB and LocalStorage. Nothing is uploaded to a server — WAVEORA has no backend. Clearing your browser data will remove your library, so use the export tool below for backups.</p>
+              </div>
+            </div>
+
+            <div class="settings-section" id="settings-data">
+              <div class="card" style="padding:20px;">
+                <h3 style="margin-bottom:12px;font-size:.95rem;">Local Data Backup</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:16px;max-width:520px;">Export your playlists, favorites, history, settings and statistics as a JSON file. Large audio files stay in IndexedDB and are not included in this metadata backup.</p>
+                <div class="data-actions">
+                  <button class="btn btn-primary" id="export-data-btn">Export Data</button>
+                  <label class="btn btn-secondary" for="import-data-input" style="cursor:pointer;">Import Data</label>
+                  <input type="file" id="import-data-input" accept="application/json" class="sr-only">
+                  <button class="btn btn-secondary" id="reset-data-btn" style="color:var(--danger);">Reset All Data</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ MINI PLAYER ============ -->
+<div class="mini-player" id="mini-player" aria-label="Mini player">
+  <div class="mp-track">
+    <div class="mp-cover"><img id="mp-cover-img" src="" alt="" onerror="this.style.opacity=0"><canvas id="mp-visualizer" style="position:absolute;inset:0;width:100%;height:100%;opacity:.35;pointer-events:none;"></canvas></div>
+    <div class="mp-meta">
+      <div class="mp-title" id="mp-title">Nothing playing</div>
+      <div class="mp-artist" id="mp-artist">—</div>
+    </div>
+    <button class="btn-icon btn-sm favorite-btn" data-scope="player" aria-label="Toggle favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 5a5.5 5.5 0 019.5 7c-2.5 4.5-9.5 9-9.5 9z"/></svg></button>
+  </div>
+  <div class="mp-center">
+    <div class="mp-controls">
+      <button class="btn-icon shuffle-btn" aria-label="Shuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg></button>
+      <button class="btn-icon prev-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M6 6h2v12H6zM20 6L10 12l10 6z"/></svg></button>
+      <button class="btn-icon play-toggle" aria-label="Play"></button>
+      <button class="btn-icon next-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16 6h2v12h-2zM4 6l10 6L4 18z"/></svg></button>
+      <button class="btn-icon repeat-btn" aria-label="Repeat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></button>
+    </div>
+    <div class="mp-progress">
+      <span id="mp-current">0:00</span>
+      <div class="seek-track"><div class="fill"></div><div class="handle"></div></div>
+      <span id="mp-duration">0:00</span>
+    </div>
+  </div>
+  <div class="mp-right">
+    <div class="mp-volume">
+      <button class="btn-icon btn-sm mute-btn" aria-label="Mute"></button>
+      <input type="range" class="volume-range" min="0" max="100" value="80" aria-label="Volume">
+    </div>
+    <button class="btn-icon" id="open-queue-btn" aria-label="Open queue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M4 6h16M4 12h10M4 18h7"/></svg></button>
+    <button class="btn-icon" id="open-player-btn" aria-label="Open full player"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M21 16v3a2 2 0 01-2 2h-3M3 16v3a2 2 0 002 2h3"/></svg></button>
+  </div>
+</div>
+
+<!-- ============ BOTTOM NAV (mobile) ============ -->
+<nav class="bottom-nav" aria-label="Mobile navigation">
+  <a class="bn-link active" href="#dashboard" data-view="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Home</a>
+  <a class="bn-link" href="#library" data-view="library" id="bn-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Search</a>
+  <a class="bn-link" href="#library" data-view="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Library</a>
+  <button class="bn-link" id="bn-player-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Player</button>
+  <a class="bn-link" href="#settings" data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</a>
+</nav>
+
+<!-- ============ FULL PLAYER OVERLAY ============ -->
+<div class="player-overlay" id="player-overlay" role="dialog" aria-modal="true" aria-label="Now playing">
+  <div class="po-head">
+    <span class="label">Now Playing</span>
+    <button class="btn-icon" id="close-player-btn" aria-label="Close player"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="po-body">
+    <div class="po-main">
+      <div class="po-art-wrap"><div class="po-art"><img id="po-cover-img" src="" alt="" onerror="this.style.opacity=0"></div></div>
+      <canvas class="po-visualizer" id="po-visualizer"></canvas>
+      <div class="po-info"><h2 id="po-title">Nothing playing</h2><p id="po-artist">—</p></div>
+      <div class="po-progress">
+        <div class="seek-track"><div class="fill"></div><div class="handle"></div></div>
+        <div class="times"><span id="po-current">0:00</span><span id="po-duration">0:00</span></div>
+      </div>
+      <div class="po-controls">
+        <button class="btn-icon shuffle-btn" aria-label="Shuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg></button>
+        <button class="btn-icon prev-btn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M6 6h2v12H6zM20 6L10 12l10 6z"/></svg></button>
+        <button class="btn-icon play-toggle" aria-label="Play"></button>
+        <button class="btn-icon next-btn" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16 6h2v12h-2zM4 6l10 6L4 18z"/></svg></button>
+        <button class="btn-icon repeat-btn" aria-label="Repeat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></button>
+      </div>
+      <div class="po-extra">
+        <button class="btn-icon btn-sm favorite-btn" data-scope="player" aria-label="Toggle favorite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 5a5.5 5.5 0 019.5 7c-2.5 4.5-9.5 9-9.5 9z"/></svg></button>
+        <div class="mp-volume"><button class="btn-icon btn-sm mute-btn" aria-label="Mute"></button><input type="range" class="volume-range" min="0" max="100" value="80" style="width:110px;" aria-label="Volume"></div>
+        <div style="position:relative;">
+          <button class="chip" id="speed-trigger">Speed</button>
+          <div class="menu-popover speed-menu" id="speed-menu">
+            <button class="speed-option" data-speed="0.75">0.75x</button>
+            <button class="speed-option active" data-speed="1">1x (Normal)</button>
+            <button class="speed-option" data-speed="1.25">1.25x</button>
+            <button class="speed-option" data-speed="1.5">1.5x</button>
+            <button class="speed-option" data-speed="2">2x</button>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <button class="chip" id="sleep-trigger">Sleep Timer</button>
+          <div class="menu-popover sleep-menu" id="sleep-menu">
+            <button class="sleep-option" data-sleep="5">5 min</button>
+            <button class="sleep-option" data-sleep="10">10 min</button>
+            <button class="sleep-option" data-sleep="15">15 min</button>
+            <button class="sleep-option" data-sleep="30">30 min</button>
+            <button class="sleep-option" data-sleep="45">45 min</button>
+            <button class="sleep-option" data-sleep="60">60 min</button>
+            <button class="sleep-option" data-sleep="endOfSong">End of song</button>
+            <button class="sleep-option" data-sleep="off">Turn off</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:4px;">
+          <button class="chip viz-style-btn active" data-style="bars">Bars</button>
+          <button class="chip viz-style-btn" data-style="wave">Wave</button>
+          <button class="chip viz-style-btn" data-style="circle">Circle</button>
+          <button class="chip viz-style-btn" data-style="particles">Particles</button>
+        </div>
+      </div>
+    </div>
+    <div class="po-side">
+      <div class="po-tabs">
+        <button class="po-tab active" data-tab="queue">Up Next</button>
+        <button class="po-tab" data-tab="lyrics">Lyrics</button>
+      </div>
+      <div class="po-panel active" data-panel="queue">
+        <div class="filter-bar" style="margin-bottom:10px;">
+          <button class="btn-sm btn-secondary btn" id="queue-save-playlist-btn">Save as Playlist</button>
+          <button class="btn-sm btn-ghost btn" id="queue-clear-btn">Clear</button>
+        </div>
+        <div id="queue-panel-list"></div>
+      </div>
+      <div class="po-panel" data-panel="lyrics">
+        <div id="lyrics-display"></div>
+        <div class="lyrics-edit" style="margin-top:14px;">
+          <div class="field"><label for="lyrics-textarea">Add / edit lyrics for this track</label><textarea id="lyrics-textarea" placeholder="Paste or type lyrics you own the rights to…"></textarea></div>
+          <button class="btn btn-primary btn-sm" id="save-lyrics-btn">Save Lyrics</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sleep-badge" id="sleep-badge">😴 <span id="sleep-badge-text">Sleep timer active</span></div>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-overlay" id="modal-add-music" role="dialog" aria-modal="true" aria-labelledby="add-music-title">
+  <div class="modal">
+    <div class="modal-head"><h3 id="add-music-title">Add Music</h3><button class="btn-icon btn-sm modal-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="dropzone" id="dropzone">
+      <div class="icon">🎵</div>
+      <p style="font-weight:700;margin-bottom:14px;">Drag & Drop Your Music</p>
+      <p style="font-size:.8rem;margin-bottom:14px;">or</p>
+      <button class="btn btn-primary" id="choose-files-btn">Choose Music Files</button>
+      <input type="file" id="file-input" accept="audio/*,.mp3,.wav,.ogg,.m4a" multiple class="sr-only">
+      <p style="font-size:.72rem;margin-top:16px;color:var(--text-muted);">MP3 • WAV • OGG • M4A — up to 60MB each</p>
+    </div>
+    <div class="upload-progress" id="upload-progress"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-edit-metadata" role="dialog" aria-modal="true" aria-labelledby="edit-meta-title">
+  <div class="modal">
+    <div class="modal-head"><h3 id="edit-meta-title">Edit Track Details</h3><button class="btn-icon btn-sm modal-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <form id="edit-meta-form">
+      <div class="field"><label for="meta-title">Song Title</label><input type="text" id="meta-title" required></div>
+      <div class="field"><label for="meta-artist">Artist</label><input type="text" id="meta-artist" required></div>
+      <div class="field"><label for="meta-album">Album</label><input type="text" id="meta-album"></div>
+      <div class="field"><label for="meta-genre">Genre</label><input type="text" id="meta-genre"></div>
+      <div class="field"><label for="meta-cover">Cover Image</label><input type="file" id="meta-cover" accept="image/*"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-create-playlist" role="dialog" aria-modal="true" aria-labelledby="create-pl-title">
+  <div class="modal">
+    <div class="modal-head"><h3 id="create-pl-title">Create Playlist</h3><button class="btn-icon btn-sm modal-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <form id="create-playlist-form">
+      <div class="field"><label for="new-playlist-name">Playlist name</label><input type="text" id="new-playlist-name" placeholder="Late Night Vibes" required></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Create</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-add-to-playlist" role="dialog" aria-modal="true" aria-labelledby="add-to-pl-title">
+  <div class="modal">
+    <div class="modal-head"><h3 id="add-to-pl-title">Add to Playlist</h3><button class="btn-icon btn-sm modal-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div id="add-to-playlist-list" style="display:flex;flex-direction:column;gap:4px;max-height:280px;overflow-y:auto;margin-bottom:14px;"></div>
+    <button class="btn btn-secondary" id="add-to-playlist-create-new" style="width:100%;">+ Create New Playlist</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-rename-playlist" role="dialog" aria-modal="true" aria-labelledby="rename-pl-title">
+  <div class="modal">
+    <div class="modal-head"><h3 id="rename-pl-title">Rename Playlist</h3><button class="btn-icon btn-sm modal-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <form id="rename-playlist-form">
+      <div class="field"><label for="rename-playlist-input">New name</label><input type="text" id="rename-playlist-input" required></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Save</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-save-queue" role="dialog" aria-modal="true" aria-labelledby="save-queue-title">
+  <div class="modal">
+    <div class="modal-head"><h3 id="save-queue-title">Save Queue as Playlist</h3><button class="btn-icon btn-sm modal-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <form id="save-queue-form">
+      <div class="field"><label for="save-queue-input">Playlist name</label><input type="text" id="save-queue-input" placeholder="My Queue" required></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ COMMAND CENTER ============ -->
+<div class="cmdk-overlay" id="cmdk-overlay">
+  <div class="cmdk-box">
+    <input class="cmdk-input" id="cmdk-input" type="text" placeholder="Type a command… (Play, Search, Settings…)" aria-label="Command input">
+    <div class="cmdk-list" id="cmdk-list"></div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/indexeddb.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/audio-engine.js"></script>
+<script src="js/visualizer.js"></script>
+<script src="js/library.js"></script>
+<script src="js/favorites.js"></script>
+<script src="js/playlists.js"></script>
+<script src="js/history.js"></script>
+<script src="js/search.js"></script>
+<script src="js/statistics.js"></script>
+<script src="js/queue.js"></script>
+<script src="js/player.js"></script>
+<script src="js/command-center.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+@keyframes toast-in{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+@keyframes toast-out{to{opacity:0;transform:translateX(30px) scale(.9);}}
+@keyframes shimmer{0%{background-position:100% 0;}100%{background-position:-100% 0;}}
+@keyframes pulse-glow{0%,100%{opacity:.55;}50%{opacity:1;}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes float-y{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes heart-pop{0%{transform:scale(1);}35%{transform:scale(1.45);}60%{transform:scale(.9);}100%{transform:scale(1);}}
+@keyframes gradient-shift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+@keyframes bar-bounce{
+  0%,100%{transform:scaleY(.3);}
+  50%{transform:scaleY(1);}
+}
+@keyframes fade-in{from{opacity:0;}to{opacity:1;}}
+@keyframes slide-up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scale-in{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+@keyframes ring-spin{to{transform:rotate(360deg);}}
+
+.view-enter{animation:fade-in var(--dur-med) var(--ease);}
+.stagger > *{animation:slide-up var(--dur-med) var(--ease) backwards;}
+.stagger > *:nth-child(1){animation-delay:.02s;}
+.stagger > *:nth-child(2){animation-delay:.06s;}
+.stagger > *:nth-child(3){animation-delay:.10s;}
+.stagger > *:nth-child(4){animation-delay:.14s;}
+.stagger > *:nth-child(5){animation-delay:.18s;}
+.stagger > *:nth-child(6){animation-delay:.22s;}
+
+.favorite-btn.pop svg{animation:heart-pop .5s var(--ease);}
+
+[data-reduced-motion="true"] *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}

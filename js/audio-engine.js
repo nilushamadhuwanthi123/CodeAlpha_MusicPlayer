@@ -94,10 +94,28 @@
     return true;
   }
 
+  // The playhead has to be written continuously while audio is running, not only
+  // on discrete actions. storage.saveLastPosition() existed but was never called
+  // from anywhere, so getLastPosition() always returned its 0 default and every
+  // restored session started at 0:00. Throttled to once every 5s so a 60-times-a-
+  // second timeupdate does not hammer localStorage.
+  const POSITION_WRITE_INTERVAL = 5000;
+  let lastPositionWrite = 0;
+  function persistPosition(force){
+    if (currentIndex < 0) return;
+    const now = Date.now();
+    if (!force && now - lastPositionWrite < POSITION_WRITE_INTERVAL) return;
+    lastPositionWrite = now;
+    WV.storage.saveLastPosition(audio.currentTime || 0);
+  }
+
   function persistPlaybackState(){
     if (currentIndex < 0) return;
     WV.storage.saveLastTrackId(queue[currentIndex].id);
     WV.storage.saveQueueState({ trackIds: queue.map(t=>t.id), currentIndex });
+    // Pause, seek and track change already snapshot the rest of the state, so
+    // take the playhead with them rather than waiting for the throttle.
+    persistPosition(true);
   }
 
   const Engine = {
@@ -118,6 +136,13 @@
       audio.addEventListener('timeupdate', ()=>{
         WV.emit('engine:timeupdate', {currentTime: audio.currentTime, duration: audio.duration});
         WV.history && WV.history.trackProgress(audio.currentTime);
+        if (!restoring) persistPosition(false);
+      });
+      // A closed tab never fires 'pause', so without these the last few seconds
+      // before leaving would be lost.
+      window.addEventListener('pagehide', ()=>persistPosition(true));
+      document.addEventListener('visibilitychange', ()=>{
+        if (document.visibilityState === 'hidden') persistPosition(true);
       });
       audio.addEventListener('loadedmetadata', ()=>{
         WV.emit('engine:loadedmetadata', {duration: audio.duration});

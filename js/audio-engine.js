@@ -343,6 +343,16 @@
         audio.currentTime = 0; audio.play().catch(()=>{});
         return;
       }
+      // The "Autoplay next track" switch in Settings is stored and restored, but
+      // was never read here - turning it off changed nothing at all. An explicit
+      // repeat mode still wins, since choosing "repeat all" is a stronger signal
+      // than leaving the general autoplay default alone.
+      if (s.autoplay === false && s.repeat === 'off'){
+        // 'ended' does not fire 'pause', so tell the UI to leave the playing state.
+        WV.emit('engine:pause', {});
+        persistPlaybackState();
+        return;
+      }
       this.next();
     },
 

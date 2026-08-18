@@ -35,6 +35,14 @@
       const c = this.ctx2d;
       c.clearRect(0,0,this.canvas.width,this.canvas.height);
     }
+    // Stop animating but leave the idle artwork on the canvas, so pausing looks
+    // the same as before while costing nothing per frame.
+    idle(){
+      if (this.raf){ cancelAnimationFrame(this.raf); this.raf = null; }
+      const c = this.ctx2d;
+      c.clearRect(0,0,this.canvas.width,this.canvas.height);
+      this._drawIdle(c, this.canvas.width, this.canvas.height);
+    }
     destroy(){
       this.stop();
       window.removeEventListener('resize', this._onResize);
@@ -57,8 +65,13 @@
       const style = document.body.getAttribute('data-viz-style') || 'bars';
       const [colA,colB] = this._colors();
 
+      // Reused across frames. Allocating a fresh Uint8Array 60 times a second,
+      // per instance, was pure garbage-collector pressure.
       const bufferLength = analyser.frequencyBinCount;
-      const data = new Uint8Array(bufferLength);
+      if (!this._buffer || this._buffer.length !== bufferLength){
+        this._buffer = new Uint8Array(bufferLength);
+      }
+      const data = this._buffer;
 
       if (style === 'wave'){
         analyser.getByteTimeDomainData(data);
@@ -162,12 +175,30 @@
     }
   }
 
+  // Nothing ever called stop()/destroy(), so every attached instance ran a 60fps
+  // requestAnimationFrame loop for the lifetime of the page - three of them, for
+  // the mini player, the closed full-player overlay and the dashboard - drawing
+  // idle bars with no audio playing. The loops now follow playback and page
+  // visibility, and are wired lazily on first attach so WV.subscribe is defined.
+  let wired = false;
+  function syncLoops(){
+    const running = !!(WV.engine && WV.engine.isPlaying) && document.visibilityState === 'visible';
+    WV.visualizer.instances.forEach(inst => running ? inst.start() : inst.idle());
+  }
+
   WV.visualizer = {
     instances: new Set(),
     attach(canvas){
       const inst = new Visualizer(canvas);
       this.instances.add(inst);
-      inst.start();
+      if (!wired && WV.subscribe){
+        wired = true;
+        WV.subscribe('engine:play', syncLoops);
+        WV.subscribe('engine:pause', syncLoops);
+        WV.subscribe('engine:trackchange', syncLoops);
+        document.addEventListener('visibilitychange', syncLoops);
+      }
+      syncLoops();
       return inst;
     },
     detach(inst){

@@ -4,6 +4,8 @@
 
 > Your Sound. Your Space.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-waveora--musicplayer-16A34A?style=for-the-badge&logo=vercel&logoColor=white)](https://waveora-musicplayer-nilusha.vercel.app)
+
 WAVEORA is a fully working, offline-capable music player and personal audio platform built with vanilla HTML, CSS and JavaScript — created for the **CodeAlpha Frontend Development Internship — Task 4: Music Player using JavaScript**.
 
 It intentionally goes beyond a basic "play/pause" widget: local music library management, playlists, favorites, a real-time audio visualizer, dynamic music-reactive theming, listening statistics, an equalizer, a sleep timer, a command palette, and PWA installability — all running entirely in the browser with **zero backend**.
